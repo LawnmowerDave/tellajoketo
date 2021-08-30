@@ -1,6 +1,6 @@
 <?php
 // oh boy isn't this fun
-// (used for filtering clean and dirty jokes)
+// (used for retrieving bad words)
 return array(
     'shit',
     'hitler',
@@ -9,8 +9,8 @@ return array(
     'fucking',
     'fucks',
     'fuckers',
-    'nigger',
-    'niggers',
+    // 'nigger',
+    // 'niggers',
     'motherfucker',
     'asshole',
     'Assface',
@@ -20,11 +20,11 @@ return array(
     'prostitution',
     'pussy',
     'faggot',
-    'faggots',
-    'fags',
-    'fag',
+    // 'faggots',
+    // 'fags',
+    // 'fag',
     'fuckin',
-    'nigga',
+    // 'nigga',
     'cockhead',
     'cock-head',
     'CockSucker',

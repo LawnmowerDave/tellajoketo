@@ -17,12 +17,12 @@
         <div class="container">
             <h1>Tell a Joke</h1>
                 <div id="first" class="input_container">
-                    <input id="recipient" class="left_box" type="text" onkeydown="handleKeyPress(this)" onkeypress="handleKeyPress(this)"
+                    <input id="recipient" class="left_box" type="text"
                         placeholder="email or phone #">
-                    <input id="submit" class="right_box" type="submit" onclick="submit(this)" value="Send 😂"></input>
+                    <input id="submit" class="right_box" type="submit" onclick="submit(this)" value="Send"></input>
                 </div>
 
-                <div class="input_container hidden">
+                <!-- <div class="input_container hidden">
                     <select name="carrier" id="carrier">
                         <option selected="selected" value="">Select Their Carrier</option>
                         <option value="@txt.att.net">AT&T</option>
@@ -30,7 +30,7 @@
                         <option value="@messaging.sprintpcs.com">Sprint</option>
                         <option value="@tmomail.net">T-Mobile</option>
                     </select>
-                </div>
+                </div> -->
 
                 <!-- optional selectors -->
 
@@ -39,7 +39,7 @@
                     <input id="randomized" type="button" class="left_box selector_button selected"
                         onclick="toggleSelect(this)" value="Random">
                     <input id="custom_joke" type="button" class="right_box selector_button" onclick="toggleSelect(this)"
-                        value="Custom Joke">
+                        value="Custom">
                 </div>
 
                 <!-- clean/dirty -->
@@ -70,6 +70,9 @@
             </div>
             
         </div>
+        
+        <img id="loader" class="post_send hidden" src="loadingcat.gif" alt="Sending...">
+
         <div id="footer">
             <a href="http://tellajoke.to/terms-and-conditions.html">Terms and Conditions</a> |
             <a href="https://github.com/LawnmowerDave/">Developed by Matt Loucks</a>

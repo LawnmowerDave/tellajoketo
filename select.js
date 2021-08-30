@@ -1,13 +1,21 @@
 
 function handleResponse(response) {
     if(response["status"] == 200) {
-        alert("Your joke has been sent!")
+        $("img").fadeOut( "slow", function() {
+            $("#main").fadeIn("slow");
+        });
     } else {
-        alert("Something went wrong! " + response["message"]);
+        $("img").fadeOut( "slow", function() {
+            $("#main").fadeIn("slow");
+            alert("Something went wrong, very sorry :(");
+        });
     }
 }
 
 function submit(object) {
+
+    $("img").fadeIn("slow", function() {});
+    $("#main").hide();
 
     let maturity;
     let identity;
@@ -37,8 +45,6 @@ function submit(object) {
         cache: false,
         success: function (msg) {
             handleResponse(msg);
-            // let response = JSON.parse(JSON.stringify(msg));
-            // console.log(response["status_code"]);
         },
         error: function(msg) {
             handleResponse(msg);
@@ -64,17 +70,5 @@ function toggleSelect(object) {
         $("#identity").parent().addClass("hidden");
     } else if ($(object).attr("id") == "identified") {
         $("#identity").parent().removeClass("hidden");
-    }
-}
-
-function handleKeyPress(object) {
-
-    let value = $("#recipient").val();
-
-    // add carrier option if it's a number
-    if (value.length > 5 && $.isNumeric(value)) {
-        $("#carrier").parent().removeClass("hidden");
-    } else {
-        $("#carrier").parent().addClass("hidden");
     }
 }

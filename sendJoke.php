@@ -28,21 +28,6 @@ function validateInput($userInput)
         );
     }
 
-    $carriers = array(
-        "txt.att.net",
-        "@vtext.com",
-        "@messaging.sprintpcs.com",
-        "@tmomail.net"
-    );
-
-    // make sure they have a valid carrier
-    if (!in_array($userInput["carrier"], $carriers)) {
-        return array(
-            "status" => 422,
-            "message" => "The carrier you provided was not recognized: " . $userInput["carrier"]
-        );
-    }
-
     if ($status !== false) {
         // echo (json_encode($status, true));
         die();
@@ -140,12 +125,15 @@ function sendMessage($message, $recipient, $identity, $isPhoneNumber)
 function getJoke($maturity)
 {
 
-    $jokes = readCSV("jokes.csv");
+    if($maturity == "clean") {
+        $jokes = readCSV("cleanjokes.csv");
+    } else if($maturity == "dirty") {
+        $jokes = readCSV("jokes.csv");
+    } else {
+        throw new Exception("maturity was not specified");
+    }
+
     $badWords = require_once("badWords.php");
-
-
-    // default in case something breaks
-    $joke = "";
 
 
     // try finding a joke that's clean/dirty for a finite number of iterations
@@ -154,19 +142,17 @@ function getJoke($maturity)
 
         // select a random index, and find the joke for it
         $jokeIndex = rand(1, count($jokes));
-        $joke = $jokes[$jokeIndex][1] . "\n" . $jokes[$jokeIndex][2];
-
-        $isDirty = contains($joke, $badWords);
-
+        
         // return it if it's what we want
-        if ($maturity == "clean" && !$isDirty) {
-            return $joke;
-        } else if ($maturity == "dirty" && $isDirty) {
-            return $joke;
+        if ($maturity == "clean") {
+            return $jokes[$jokeIndex][1];
+            // make sure we got ourselves a real dirty one :)
+        } else if ($maturity == "dirty") {
+            $dirtyJoke = $jokes[$jokeIndex][1] . " " . $jokes[$jokeIndex][2];
 
-            // bad input for maturity
-        } else if ($maturity != "clean" && $maturity != "dirty") {
-            throw new Exception("maturity was not specified");
+            if(contains($dirtyJoke, $badWords)) {
+                return $dirtyJoke;
+            }
         }
     }
 
@@ -202,6 +188,19 @@ function contains($str, array $arr)
     return false;
 }
 
+function log_msg($log_msg)
+{
+    $log_filename = "log";
+    if (!file_exists($log_filename)) 
+    {
+        // create directory/folder uploads.
+        mkdir($log_filename, 0777, true);
+    }
+    $log_file_data = $log_filename.'/log_' . date('Y-m-d') . '.log';
+    // if you don't add `FILE_APPEND`, the file will be erased each time you add a log
+    file_put_contents($log_file_data, $log_msg . ' - ' . date('H:i:s') . "\n", FILE_APPEND);
+} 
+
 
 try {
     // validate input and return an error if anything doesn't work
@@ -213,14 +212,23 @@ try {
         $joke = $_POST["joke"];
     }
 
-    // a non-null carrier implies they want to send a text.
-    if ($_POST["carrier"] != "") {
-        $recipient = $_POST["recipient"] . $_POST["carrier"];
-    } else {
-        $recipient = $_POST["recipient"];
-    }
+    $carriers = array(
+        "@txt.att.net",
+        "@vtext.com",
+        "@messaging.sprintpcs.com",
+        "@tmomail.net"
+    );
 
-    $isSent = sendMessage($joke, $recipient, $_POST["identity"], $_POST["carrier"] != "");
+    // the recipient is a phone number, loop through all major carriers and send it everywhere.
+    if(is_numeric($_POST["recipient"])) {
+        foreach($carriers as $carrier) {
+            $isSent = sendMessage($joke, $_POST["recipient"] . $carrier, $_POST["identity"], true);
+        }
+    } else {
+        $isSent = sendMessage($joke, $_POST["recipient"], $_POST["identity"], false);
+    }
+    
+    log_msg("sent joke $joke to " . $_POST["recipient"]);
 
     echo(json_encode(array(
         "status" => 200
@@ -230,4 +238,6 @@ try {
         "status" => 500,
         "exception" => $e
     )));
+
+    log_msg("Exception " . print_r(e) . " POST:  " . print_r($_POST));
 }
