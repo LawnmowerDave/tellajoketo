@@ -17,11 +17,12 @@ h1 {
 
 .container {
     margin: auto;
+    width: 75%;
 }
 
 .input_container {
     margin: auto;
-    padding-bottom: 3em;
+    padding-bottom: 4em;
     width: 100%;
     height: 1em;
     text-align: center;
@@ -29,7 +30,7 @@ h1 {
 }
 
 .input_container:not(#first) {
-    width: 75%;
+    width: 50%;
 }
 
 
@@ -45,7 +46,6 @@ input {
 input[type="text"]:not(#recipient) {
     width: 100%;
     box-sizing: border-box;
-
 }
 
 #recipient:focus,
@@ -142,7 +142,7 @@ label {
     font-weight: bold;
 }
 
-#footer {
+footer {
     position: fixed;
     left: 0; 
     right: 0; 
@@ -155,7 +155,7 @@ label {
     font-size: 0.75em;
 }
 
-#footer a {
+footer a {
     /* text-decoration: none; */
     color: gray;
 }
@@ -168,4 +168,8 @@ label {
     margin: auto;
     position: absolute;
     top: 0; left: 0; bottom: 0; right: 0;
+}
+
+#bmc {
+    height: fit-content;
 }

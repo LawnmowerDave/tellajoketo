@@ -126,9 +126,9 @@ function getJoke($maturity)
 {
 
     if($maturity == "clean") {
-        $jokes = readCSV("cleanjokes.csv");
+        $jokes = readCSV("clean.csv");
     } else if($maturity == "dirty") {
-        $jokes = readCSV("jokes.csv");
+        $jokes = readCSV("dirty.csv");
     } else {
         throw new Exception("maturity was not specified");
     }
