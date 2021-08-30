@@ -29,7 +29,7 @@ h1 {
 }
 
 .input_container:not(#first) {
-    width: 50%;
+    width: 75%;
 }
 
 
