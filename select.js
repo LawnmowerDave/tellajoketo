@@ -55,7 +55,7 @@ function submit(object) {
 
     $.ajax({
         type: "POST",
-        url: "/tellajoketo/sendJoke.php",
+        url: "sendJoke.php",
         data: {
             "joke": $("#custom_joke_text").val(),
             "recipient": $("#recipient").val(),
