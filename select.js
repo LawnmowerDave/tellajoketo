@@ -24,6 +24,9 @@ function handleResponse(response) {
         $(".post_send").fadeOut("fast", function () {
             $("#main").fadeIn("fast");
             shootConfetti();
+            $("#randomized").addClass("selected");
+            $("#clean").addClass("selected");
+            $("#anonymous").addClass("selected");
         });
     } else {
         $(".post_send").fadeOut("slow", function () {
