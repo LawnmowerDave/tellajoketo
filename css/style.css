@@ -1,6 +1,7 @@
 body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 20px;
+    overflow: none;
 }
 
 h1 {
@@ -161,7 +162,7 @@ footer a {
 
 .post_send {
     border-radius: 1em;
-    width: 65%;
+    width: 45%;
     height: auto;
     overflow: auto;
     margin: auto;
@@ -171,4 +172,16 @@ footer a {
 
 #bmc {
     height: fit-content;
+}
+
+canvas {
+    position: fixed; /* absolute */
+    z-index: -1;
+    width: 90%;
+    height: 100%;
+    overflow: none;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
 }

@@ -1,11 +1,32 @@
 
+
+
+function shootConfetti() {
+    $(document).ready(function () {
+        const canvas = document.getElementById("confetti");
+    
+        canvas.setAttribute('width', window.innerWidth);
+        canvas.setAttribute('height', window.innerHeight);
+    
+        const jsConfetti = new JSConfetti({ canvas });
+    
+        jsConfetti.addConfetti({
+            confettiRadius: 6,
+            confettiNumber: 100,
+        });
+    
+    });
+}
+
+
 function handleResponse(response) {
-    if(response["status"] == 200) {
-        $(".post_send").fadeOut( "slow", function() {
-            $("#main").fadeIn("slow");
+    if (response["status"] == 200) {
+        $(".post_send").fadeOut("fast", function () {
+            $("#main").fadeIn("fast");
+            shootConfetti();
         });
     } else {
-        $(".post_send").fadeOut( "slow", function() {
+        $(".post_send").fadeOut("slow", function () {
             $("#main").fadeIn("slow");
             alert("Something went wrong, very sorry :(");
         });
@@ -14,7 +35,7 @@ function handleResponse(response) {
 
 function submit(object) {
 
-    $(".post_send").fadeIn("slow", function() {});
+    $(".post_send").fadeIn("slow", function () { });
     $("#main").hide();
 
     let maturity;
@@ -34,7 +55,7 @@ function submit(object) {
 
     $.ajax({
         type: "POST",
-        url: "sendJoke.php",
+        url: "/tellajoketo/sendJoke.php",
         data: {
             "joke": $("#custom_joke_text").val(),
             "recipient": $("#recipient").val(),
@@ -46,7 +67,7 @@ function submit(object) {
         success: function (msg) {
             handleResponse(msg);
         },
-        error: function(msg) {
+        error: function (msg) {
             handleResponse(msg);
         }
     });

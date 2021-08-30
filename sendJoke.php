@@ -126,9 +126,9 @@ function getJoke($maturity)
 {
 
     if($maturity == "clean") {
-        $jokes = readCSV("clean.csv");
+        $jokes = readCSV("jokes/clean.csv");
     } else if($maturity == "dirty") {
-        $jokes = readCSV("dirty.csv");
+        $jokes = readCSV("jokes/dirty.csv");
     } else {
         throw new Exception("maturity was not specified");
     }
@@ -232,12 +232,14 @@ try {
 
     echo(json_encode(array(
         "status" => 200
-    ), ));
+    )));
 } catch (Exception $e) {
+    log_msg("Exception " . print_r(e) . " POST:  " . print_r($_POST));
+
     echo (json_encode(array(
         "status" => 500,
         "exception" => $e
     )));
 
-    log_msg("Exception " . print_r(e) . " POST:  " . print_r($_POST));
+    die();
 }
