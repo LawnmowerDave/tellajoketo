@@ -4,29 +4,47 @@
 function shootConfetti() {
     $(document).ready(function () {
         const canvas = document.getElementById("confetti");
-    
+
         canvas.setAttribute('width', window.innerWidth);
         canvas.setAttribute('height', window.innerHeight);
-    
+
         const jsConfetti = new JSConfetti({ canvas });
-    
+
         jsConfetti.addConfetti({
             confettiRadius: 6,
             confettiNumber: 100,
         });
-    
+
     });
 }
 
 
+function isNumeric(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+
+/**
+ * handle response from server
+ * 
+ * @param {JSON} response json response
+ */
 function handleResponse(response) {
     if (response["status"] == 200) {
+
+        // shoot confetti and reset everything!
         $(".post_send").fadeOut("fast", function () {
             $("#main").fadeIn("fast");
             shootConfetti();
             $("#randomized").addClass("selected");
             $("#clean").addClass("selected");
             $("#anonymous").addClass("selected");
+            
+            $("#custom_joke").addClass("selected");
+            $("#dirty").addClass("selected");
+            $("#identified").addClass("selected");
+            
+            $("#recipient").val("");
         });
     } else {
         $(".post_send").fadeOut("slow", function () {
@@ -56,12 +74,22 @@ function submit(object) {
         identity = "anonymous";
     }
 
+    let recipient = $("#recipient").val();
+
+    // strip dashes and parentheses from phone number
+    if(recipient.indexOf('@') == -1) {
+        recipient = recipient.replace(/-/g,'');
+        recipient = recipient.replace('(','');
+        recipient = recipient.replace(')','');
+        recipient = recipient.replace(/ /g,'');
+    }
+
     $.ajax({
         type: "POST",
         url: "sendJoke.php",
         data: {
             "joke": $("#custom_joke_text").val(),
-            "recipient": $("#recipient").val(),
+            "recipient": recipient,
             "carrier": $("#carrier").val(),
             "maturity": maturity,
             "identity": identity
