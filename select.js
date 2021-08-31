@@ -45,6 +45,19 @@ function handleResponse(response) {
             $("#identified").removeClass("selected");
             
             $("#recipient").val("");
+
+            // remove custom joke
+            $("#custom_joke_text").parent().addClass("hidden");
+            $("#custom_joke_text").val("");
+            $("#dirty").parent().removeClass("hidden");
+
+            // remove identity
+            $("#identity").parent().addClass("hidden");
+            $("#identity").val("");
+
+
+
+
         });
     } else {
         $(".post_send").fadeOut("slow", function () {
@@ -54,6 +67,7 @@ function handleResponse(response) {
     }
 }
 
+// on form submit
 function submit(object) {
 
     $(".post_send").fadeIn("slow", function () { });
