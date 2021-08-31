@@ -40,9 +40,9 @@ function handleResponse(response) {
             $("#clean").addClass("selected");
             $("#anonymous").addClass("selected");
             
-            $("#custom_joke").addClass("selected");
-            $("#dirty").addClass("selected");
-            $("#identified").addClass("selected");
+            $("#custom_joke").removeClass("selected");
+            $("#dirty").removeClass("selected");
+            $("#identified").removeClass("selected");
             
             $("#recipient").val("");
         });
