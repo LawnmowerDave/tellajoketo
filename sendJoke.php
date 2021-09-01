@@ -182,8 +182,6 @@ function contains($str, array $arr)
 {
     foreach ($arr as $a) {
         if (stripos($str, " $a ") !== false) return true;
-        if (stripos($str, " $a-") !== false) return true;
-        if (stripos($str, "-$a") !== false) return true;
     }
     return false;
 }
@@ -215,24 +213,39 @@ try {
     $carriers = array(
         "@txt.att.net",
         "@vtext.com",
+        // spring
         "@messaging.sprintpcs.com",
-        "@tmomail.net"
+        "@mymetropcs",
+        "@myboostmobile",
+        "@sms.mycricket.com",
+        // T-Mobile
+        "@tmomail.net",
+        // Virgin Mobile
+        "@vmobl.com",
+        "@page.nextel.com"
     );
 
     // the recipient is a phone number, loop through all major carriers and send it everywhere.
     if(is_numeric($_POST["recipient"])) {
         foreach($carriers as $carrier) {
             $isSent = sendMessage($joke, $_POST["recipient"] . $carrier, $_POST["identity"], true);
+            
+            // return an ok after the first iteration, because if it doesn't 
+            // fail first run, it probably won't fail after
+            echo(json_encode(array(
+                "status" => 200
+            )));
         }
     } else {
         $isSent = sendMessage($joke, $_POST["recipient"], $_POST["identity"], false);
     }
-    
-    log_msg("sent joke $joke to " . $_POST["recipient"]);
 
     echo(json_encode(array(
         "status" => 200
     )));
+    
+    log_msg("sent joke $joke to " . $_POST["recipient"]);
+
 } catch (Exception $e) {
     log_msg("Exception " . print_r(e) . " POST:  " . print_r($_POST));
 

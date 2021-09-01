@@ -98,6 +98,13 @@ function submit(object) {
         recipient = recipient.replace(/ /g,'');
     }
 
+    let exp = new RegExp("[\+][0-9]", 'i');
+
+    // strip out any leading international codes eg. +1
+    if(exp.test(recipient)) {
+        recipient = recipient.substr(2, recipient.length);
+    }
+
     $.ajax({
         type: "POST",
         url: "sendJoke.php",
