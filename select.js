@@ -105,6 +105,13 @@ function submit(object) {
         recipient = recipient.substr(2, recipient.length);
     }
 
+    // someone probably put a 1 in front of the number
+    if(recipient.length > 10 && recipient.indexOf('@') == -1) {
+        recipient = recipient.substr(1, recipient.length);
+    }
+
+    console.log(recipient);
+
     $.ajax({
         type: "POST",
         url: "sendJoke.php",

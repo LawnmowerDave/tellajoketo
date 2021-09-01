@@ -135,6 +135,23 @@ function getJoke($maturity)
 
     $badWords = require_once("badWords.php");
 
+    // quick and dirty blacklist to omit political jokes
+    $blackList = array(
+        "liberal",
+        "democrat",
+        "republican",
+        "conservative",
+        "Liberal",
+        "Democrat",
+        "Republican",
+        "Conservative",
+        "politics",
+        "political",
+        "Politics",
+        "Trump",
+        "trump"
+    );
+
 
     // try finding a joke that's clean/dirty for a finite number of iterations
     // a while true might lead to bad things
@@ -150,7 +167,8 @@ function getJoke($maturity)
         } else if ($maturity == "dirty") {
             $dirtyJoke = $jokes[$jokeIndex][1] . " " . $jokes[$jokeIndex][2];
 
-            if(contains($dirtyJoke, $badWords)) {
+            if(contains($dirtyJoke, $badWords) &&
+                !contains($dirtyJoke, $blackList)) {
                 return $dirtyJoke;
             }
         }
@@ -215,14 +233,10 @@ try {
         "@vtext.com",
         // spring
         "@messaging.sprintpcs.com",
-        "@mymetropcs",
-        "@myboostmobile",
-        "@sms.mycricket.com",
+        // "@sms.mycricket.com",
         // T-Mobile
         "@tmomail.net",
         // Virgin Mobile
-        "@vmobl.com",
-        "@page.nextel.com"
     );
 
     // the recipient is a phone number, loop through all major carriers and send it everywhere.
