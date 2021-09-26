@@ -206,13 +206,13 @@ function contains($str, array $arr)
 
 function log_msg($log_msg)
 {
-    $log_filename = "log";
-    if (!file_exists($log_filename)) 
+    $log_dir = "/var/log/tellajoke.to";
+    if (!file_exists($log_dir)) 
     {
         // create directory/folder uploads.
-        mkdir($log_filename, 0777, true);
+        mkdir($log_dir, 0777, true);
     }
-    $log_file_data = $log_filename . '/' . date('Y-m-d') . '.log';
+    $log_file_data = $log_dir . '/' . date('Y-m-d') . '.log';
     // if you don't add `FILE_APPEND`, the file will be erased each time you add a log
     file_put_contents($log_file_data, $log_msg . ' - ' . date('H:i:s') . "\n", FILE_APPEND);
 } 
