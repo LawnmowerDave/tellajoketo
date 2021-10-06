@@ -10,3 +10,4 @@ ErrorDocument 404 404.html
     # this trick was discovered by https://www.youtube.com/watch?v=gNY4kC7-Q-k&ab_channel=JohnMorris
     RewriteRule ^(.*)$ ./index.php?u=$1 [L,QSA]
 </IfModule>
+    
