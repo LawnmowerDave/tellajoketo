@@ -1,47 +1,70 @@
 body {
     font-size: 20px;
     overflow: none;
+    background: white;
+    font-family: monospace;
+
 }
 
 h1 {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     border-radius: 10px;
-    margin-bottom: 1.5em;
+    margin-bottom: 2.5rem;
+}
+
+h2 {
+    margin: none;
+    padding: none;
 }
 
 #main {
     display: flex;
     text-align: center;
+    flex-direction: column;
     vertical-align: auto;
     padding: 10px;
+    /* border: 2px solid blue; */
 }
 
 .container {
-    margin: auto;
+    /* padding-bottom: 1rem; */
+    /* border: 2px solid green; */
+
     /* remove this if it breaks */
-    min-width: 50%;
+    /* min-width: fit-content; */
 }
 
 .input_container {
     margin: auto;
-    padding-bottom: 4em;
-    width: 100%;
-    height: 1em;
+    padding-bottom: 4rem;
+    height: 1rem;
     text-align: center;
     /* border: 1px solid black; */
 }
 
+/* big landscape tablets, laptops, and desktops */
+/* hi-res laptops and desktops */
+@media (min-width:1281px) and (min-width:1025px) { 
+    .input_container {
+        max-width: 35%;
+        font-size: 3.5rem;
+    }
+    .container {
+        margin-bottom: 1.5rem;
+    }
+}
+
 .input_container:not(#first) {
-    width: 75%;
+    width: 80%;
 }
 
 
 input {
-    font-size: 1em;
-    border-radius: 0.75em;
+    font-size: 1rem;
+    border-radius: 0.75rem;
     border-style: solid;
     box-shadow: none;
-    padding: 0.75em;
+    padding: 1rem;
     width: 50%;
 }
 
@@ -59,7 +82,7 @@ input[type="text"]:not(#recipient) {
 
 #submit {
     width: 25%;
-    background-color: gainsboro;
+    background-color: lightpink;
     color: black;
     border-left: none;
     border-left: 2px solid black;
@@ -70,7 +93,8 @@ input[type="text"]:not(#recipient) {
     cursor: pointer;
 }
 
-#submit:hover {
+
+#submit:hover  {
     transition: all .2s ease-in-out;
     transform: scale(1.1);
 }
@@ -117,7 +141,7 @@ input[type="text"]:not(#recipient) {
 }
 
 input[type=button]:not(.selected) {
-    background-color: linen;
+    background-color: whitesmoke;
 }
 
 .hidden {
@@ -129,11 +153,11 @@ input:focus {
 }
 
 #carrier {
-    font-size: 1em;
+    font-size: 1rem;
     background-color: lightgreen;
-    border-radius: 0.5em;
+    border-radius: 0.5rem;
     border: 2px solid black;
-    padding: 0.5em;
+    padding: 0.5rem;
     outline: none !important;
     font-weight: bold;
 
@@ -144,7 +168,7 @@ input:focus {
 }
 
 label {
-    font-size: 1em;
+    font-size: 1rem;
     font-weight: bold;
 }
 
@@ -157,17 +181,17 @@ footer {
     bottom: 0;
     text-align: center;
     color: gray;
-    margin-bottom: 1em;
-    font-size: 0.75em;
+    margin-bottom: 1rem;
+    font-size: 0.75rem;
 }
 
 footer a {
-    /* text-decoration: none; */
+    text-decoration: none;
     color: gray;
 }
 
 .post_send {
-    border-radius: 1em;
+    border-radius: 1rem;
     width: 45%;
     height: auto;
     overflow: auto;
@@ -199,7 +223,7 @@ canvas {
   }
   @-webkit-keyframes glow {
     from {
-      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #008000, 0 0 40px #008000, 0 0 50px #008000, 0 0 60px #008000, 0 0 70px #e60073;
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #429edb, 0 0 40px #6fb6e6, 0 0 50px #87bbdd, 0 0 60px #a2c5dd, 0 0 70px #e60073;
     }
     
     to {

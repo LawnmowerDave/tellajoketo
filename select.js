@@ -1,6 +1,4 @@
 
-
-
 function shootConfetti() {
     $(document).ready(function () {
         const canvas = document.getElementById("confetti");
@@ -54,15 +52,16 @@ function handleResponse(response) {
             // remove identity
             $("#identity").parent().addClass("hidden");
             $("#identity").val("");
-
-
-
-
         });
     } else {
         $(".post_send").fadeOut("slow", function () {
             $("#main").fadeIn("slow");
-            alert("Something went wrong, very sorry :(");
+            // this means a user input error
+            if(response.status == 422) {
+                alert(response.message);
+            } else {
+                alert("Something broke, what did ya expect from free software? :P");
+            }
         });
     }
 }
@@ -89,7 +88,41 @@ function submit(object) {
     }
 
     let recipient = $("#recipient").val();
+    let u = $("#u").text();
 
+    if(recipient) {
+        recipient = parseRecipient(recipient);
+    }
+
+    let data = {
+        "joke": $("#custom_joke_text").val(),
+        "recipient": recipient,
+        "carrier": $("#carrier").val(),
+        "maturity": maturity,
+        "identity": identity,
+    }
+
+    if(u) {
+        data["u"] = u;
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "sendJoke.php",
+        data: data,
+        cache: false,
+        success: function (msg) {
+            handleResponse(msg);
+        },
+        error: function (msg) {
+            handleResponse(msg);
+        }
+    });
+}
+
+// make sure recipient is email or phone number, also make sure numbers
+// are clean
+function parseRecipient(recipient) {
     // strip dashes and parentheses from phone number
     if(recipient.indexOf('@') == -1) {
         recipient = recipient.replace(/-/g,'');
@@ -110,26 +143,7 @@ function submit(object) {
         recipient = recipient.substr(1, recipient.length);
     }
 
-    console.log(recipient);
-
-    $.ajax({
-        type: "POST",
-        url: "sendJoke.php",
-        data: {
-            "joke": $("#custom_joke_text").val(),
-            "recipient": recipient,
-            "carrier": $("#carrier").val(),
-            "maturity": maturity,
-            "identity": identity
-        },
-        cache: false,
-        success: function (msg) {
-            handleResponse(msg);
-        },
-        error: function (msg) {
-            handleResponse(msg);
-        }
-    });
+    return recipient;
 }
 
 
