@@ -3,6 +3,7 @@
 
 <head>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animate.min.css">
     <link rel="shortcut icon" href="laughing.ico" type="image/x-icon" />
     <script src="lib/jquery-3.6.0.min.js"></script>
     <script src="lib/js-confetti.browser.js"></script>
@@ -21,7 +22,7 @@
 <body>
     <div id="main">
         <div class="container">
-            <a href="https://tellajoke.to"><h1 class="glow">Tell a Joke</h1></a>
+            <a id="title" href="https://tellajoke.to"><h1 class="glow">Tell a Joke</h1></a>
 
             <?php
             // render appropriate contents based on if it's a user's page
@@ -40,16 +41,16 @@
             ?>
         </div>
 
-        <div class="container">
+        <div id="options_container" class="container">
 
             <!-- random/custom -->
-            <div class="input_container">
-                <input id="randomized" type="button" class="left_box selector_button selected" onclick="toggleSelect(this)" value="Random 🎲">
+            <div class="input_container options_container">
+                <input id="randomized" type="button" class="enter_left left_box selector_button selected" onclick="toggleSelect(this)" value="Random 🎲">
                 <input id="custom_joke" type="button" class="right_box selector_button" onclick="toggleSelect(this)" value="Custom 🎨">
             </div>
 
             <!-- clean/dirty -->
-            <div class="input_container">
+            <div class="input_container options_container">
                 <input id="clean" name="maturity" type="button" class="left_box selector_button selected" onclick="toggleSelect(this)" value="Clean 👼">
                 <input id="dirty" name="maturity" type="button" class="right_box selector_button" onclick="toggleSelect(this)" value="Dirty 😈">
             </div>
@@ -60,7 +61,7 @@
             </div>
 
             <!-- anonymous/identified -->
-            <div class="input_container">
+            <div class="input_container options_container">
                 <input id="anonymous" type="button" class="left_box selector_button selected" onclick="toggleSelect(this)" value="Anonymous 🕵️‍♂️">
                 <input id="identified" type="button" class="right_box selector_button" onclick="toggleSelect(this)" value="Identified 📛">
             </div>
