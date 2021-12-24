@@ -12,6 +12,17 @@ require_once "util.php";
 
 $mail = new PHPMailer();
 
+$carriers = array(
+    "@txt.att.net",
+    "@vtext.com",
+    // spring
+    "@messaging.sprintpcs.com",
+    // "@sms.mycricket.com",
+    // T-Mobile
+    "@tmomail.net",
+    // Virgin Mobile
+);
+
 
 /**
  * Validate the given associative array of user input
@@ -110,7 +121,30 @@ function sendMessage($message, $recipient, $identity, $isPhoneNumber)
             "identity" => $identity
         ));
 
-        if ($isPhoneNumber) {
+        $carriers = array(
+            "@txt.att.net",
+            "@vtext.com",
+            // spring
+            "@messaging.sprintpcs.com",
+            // "@sms.mycricket.com",
+            // T-Mobile
+            "@tmomail.net",
+            // Virgin Mobile
+        );
+
+        $isPhoneEmailAddress = false;
+
+        // check if a carrier ex @vtext.com is in the recipient.
+        // this is usually only for database entries to save the number of 
+        // potential emails.
+        foreach($carriers as $carrier) {
+            if(strpos($recipient, $carrier) !== false)  {
+                $isPhoneEmailAddress = true;
+            }
+        }
+
+
+        if ($isPhoneNumber || $isPhoneEmailAddress) {
             $mail->isHTML(false);
             $mail->Subject = '';
             $mail->Body    = "$message\n ~ $identity \n\n Sent using tellajoke.to";
@@ -261,17 +295,6 @@ try {
     } else {
         $joke = $_POST["joke"];
     }
-
-    $carriers = array(
-        "@txt.att.net",
-        "@vtext.com",
-        // spring
-        "@messaging.sprintpcs.com",
-        // "@sms.mycricket.com",
-        // T-Mobile
-        "@tmomail.net",
-        // Virgin Mobile
-    );
 
     // the recipient is a phone number, loop through all major carriers and send it everywhere.
     if(is_numeric($_POST["recipient"])) {

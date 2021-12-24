@@ -10,13 +10,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- meta tags for SEO -->
+    <meta name="description" content="Type in a friend's phone number or email to send them a random joke!">
+    <meta name=”robots” content="index, follow">
+
     <title>Tell a Joke</title>
 </head>
 
 <body>
     <div id="main">
         <div class="container">
-            <h1 class="glow">Tell a Joke</h1>
+            <a href="https://tellajoke.to"><h1 class="glow">Tell a Joke</h1></a>
 
             <?php
             // render appropriate contents based on if it's a user's page
@@ -28,23 +33,14 @@
                 echo("<span id='u' class='hidden'>$u</span>");
                 echo (file_get_contents("submit.html"));
             } else {
+                // little bit of spacing here
+                echo("<br>");
                 echo (file_get_contents("recipient.html"));
             }
             ?>
-
-
-
-            <!-- recipient -->
-            <!-- <div id="first" class="input_container">
-                    <input id="recipient" class="left_box" type="text"
-                        placeholder="email or phone #">
-                    <input id="submit" class="right_box" type="submit" onclick="submit(this)" value="Send 😂"></input>
-                </div> -->
-
         </div>
 
         <div class="container">
-
 
             <!-- random/custom -->
             <div class="input_container">
@@ -55,7 +51,6 @@
             <!-- clean/dirty -->
             <div class="input_container">
                 <input id="clean" name="maturity" type="button" class="left_box selector_button selected" onclick="toggleSelect(this)" value="Clean 👼">
-
                 <input id="dirty" name="maturity" type="button" class="right_box selector_button" onclick="toggleSelect(this)" value="Dirty 😈">
             </div>
 
@@ -83,10 +78,10 @@
     <img id="loader" class="post_send hidden" src="assets/loadingcat.gif" alt="Sending...">
 
     <footer id="footer">
-        <!-- <a href="http://tellajoke.to/terms-and-conditions.html">Terms and Conditions</a> | -->
-        <a href="https://github.com/LawnmowerDave/">Developed by Matt Loucks</a> |
-        <a href="https://www.buymeacoffee.com/LawnmowerDave">Buy Me a Coffee</a>
-        <!-- <img id="bmc" src="assets/blue-button.png" alt="Buy me a Coffee"> -->
+        <a href="http://tellajoke.to/terms-and-conditions.html">Developed by Matt Loucks</a> |
+        <a href="http://tellajoke.to/about.html">About</a> |
+        <a href="http://tellajoke.to/custom-page.html">Get Your Own Page</a> |
+        <a href="https://www.buymeacoffee.com/LawnmowerDave">Buy Me a Book</a>
     </footer>
 </body>
 <canvas id="confetti">
